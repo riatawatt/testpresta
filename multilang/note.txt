@@ -1,0 +1,9 @@
+// pour modifier getBaseLink pour qu'il n'y ait pas de redirection vers autre domain
+C:\wamp64\www\sites\presta\ps17\classes\Link.php
+// pour modifier __construct pour que ça soit la langue en fonction du subdomain
+C:\wamp64\www\sites\presta\ps17\classes\Language.php 
+// pour modifier __construct. modifier le shop pour que ça soit toujours un seul shop 
+C:\wamp64\www\sites\presta\ps17\classes\shop\Shop.php
+// pour faire modifier init() et faire un str_replace. ex : replace www.domain.com with fr.domain.com
+C:\wamp64\www\sites\presta\ps17\classes\controller\FrontController.php
+ 
