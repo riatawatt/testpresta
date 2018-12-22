@@ -6,4 +6,5 @@ C:\wamp64\www\sites\presta\ps17\classes\Language.php
 C:\wamp64\www\sites\presta\ps17\classes\shop\Shop.php
 // pour faire modifier init() et faire un str_replace. ex : replace www.domain.com with fr.domain.com
 C:\wamp64\www\sites\presta\ps17\classes\controller\FrontController.php
- 
+// enable edit shared things
+C:\wamp64\www\sites\presta\ps17\controllers\admin\AdminShopGroupController.php 
