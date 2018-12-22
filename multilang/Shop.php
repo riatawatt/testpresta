@@ -127,7 +127,7 @@ class ShopCore extends ObjectModel
      */
     public function __construct($id = null, $id_lang = null, $id_shop = null, $forceId = true)
     {
-        if ($forceId) {
+        if ($forceId && !$this->isBO ()) {
             $id = 1;
         }
          
@@ -139,6 +139,12 @@ class ShopCore extends ObjectModel
                 $this->setTheme();
             }
         }
+    }
+
+    public function isBO () { 
+        $r = strpos($_SERVER['PHP_SELF'], 'admin064m1npfo');
+ 
+        return $r;
     }
 
     /**
@@ -993,7 +999,9 @@ class ShopCore extends ObjectModel
         if ($null_value_without_multishop && !Shop::isFeatureActive()) {
             return null;
         }
-        return self::$context_id_shop;
+
+        // return self::$context_id_shop;
+        return 1;
     }
 
     /**
@@ -1005,7 +1013,8 @@ class ShopCore extends ObjectModel
             throw new LogicException('The retrieval of the contextual shop id is only possible in "single shop mode".');
         }
 
-        return (int) self::$context_id_shop;
+        // return (int) self::$context_id_shop;
+        return 1;
     }
 
     /**
