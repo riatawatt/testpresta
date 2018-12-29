@@ -105,8 +105,16 @@ class LanguageCore extends ObjectModel
 
     public function __construct($id = null, $id_lang = null)
     { 
-        $id = $this->getLanguageIdBySubDomain (); 
+        if (!$this->isBO ()) {
+            $id = $this->getLanguageIdBySubDomain (); 
+        }
         parent::__construct($id);
+    }
+
+    public function isBO () { 
+        $r = strpos($_SERVER['PHP_SELF'], 'admin064m1npfo');
+ 
+        return $r;
     }
 
     public function getLanguageIdBySubDomain () {
