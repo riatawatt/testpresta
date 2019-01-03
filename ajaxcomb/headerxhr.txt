@@ -1,0 +1,32 @@
+Request URL: http://www.ps17.com/en/index.php?controller=product?token=513da5211a63eb67e354a9e453c596ea&id_product=2&id_customization=0&group%5B1%5D=2&qty=1
+Request Method: POST
+Status Code: 200 OK
+Remote Address: [::1]:80
+Referrer Policy: no-referrer-when-downgrade
+Connection: Keep-Alive
+Content-Type: application/json
+Date: Thu, 03 Jan 2019 03:44:28 GMT
+Keep-Alive: timeout=5, max=100
+Server: Apache/2.4.33 (Win64) OpenSSL/1.1.0g PHP/5.6.35
+Transfer-Encoding: chunked
+X-Powered-By: PHP/5.6.35
+Accept: application/json, text/javascript, */*; q=0.01
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9,fr;q=0.8
+Connection: keep-alive
+Content-Length: 39
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Cookie: PrestaShop-b1d97ca91970590ec89c7c8dfec047fa=def50200681af813a327ee86e0138a6738ea21c8807cee252739cb1048f3779adb8b328aecb2d17d8add91a4e1c4eb1a1a63da03e971cf77092434a17a5711c8480a60c840c9305e605d480f608f7e898466b19afa0ca01fd771e3f6750419c935fc2b8e6f94bb5e17489343e46023e541552dddd30ecd5b0f9ab24126916b14ccd3f5c155c38a43ff2b12677f99f55d09cea9ea11d174f535667f4e7ce81409ddf18ac3948f726421483557685c6413e0076722c9a8c5b87eb5a108b00709b5f8fc04fe66cfafd8d1e5ab044c553dd8cd15a02ed420cfa2797b67c72d89029bfa5a3bec31fb02310323d84507ecab8228e6c7b5c048d4dfe798985176209f0f162edc28afb078748c2c592fb02aa4de8f01452f46416cd51ca885baf34159bfad3eb3f3ed0c5d9727c7; PrestaShop-5a84e038f0fd8b5dafb5bf9b9d43b8c6=def50200d196df7b6ebdd6679182613d5cb07cf6a868ba2bb0c54aa41e9d2afbcc4c5d57aecb281c6ef53ee5b48c98c8381e97469a3048e2e8ef554c1fada3948eaa9aca99b895267fa6cd35937388856b47156e519d5d60077789cfeaf71d4f168d095bbfaaac8c334ece8e54f8286046264e8068679ae6b0e9bd5d0561e15b3c7d2df8373f386363567238f6c9b3f023e2491710a3651d5fb89520172d2bd6d5984a45d3a178de15c687703703b887f58797031a342a4d67b7bcecb95a46dae70e05e40a640b025b1622703de9ef1a3dc26afb74bb483325134a1029dceafc5fc5ae2090a9d6237fb751967b6d15cddbb045939b5e8b2eebeae2e890ddaf93e1174a23fc09afc2a2d8b00471dd10b8c44c67b65f9f55a9bd5776a4115afd47b8924782eebbd2ded22403815be2a5c376321312be7cb19f5c14f9ae; PHPSESSID=v1gvcbg0jmslj3hr527fvj1qn3; PrestaShop-a0d3730583bb8d70cd7ea5d0302303f1=def502001bca7c347050afdf8d3790dab72d46aec760dcc86bd4082c083b2d2b5aeb5d25e9bc7af4941c219a31839d2e816519e690ba6b2145f9fcb7e980def34a2ec3ab1a80cd9b4acf222557a947c978b3e363a9f2b48e6466ba9afa35add758c41af0c165179cefa9493043a650856bd37d3554a07a93bbd08e02f10096ddd19e24e18473f518f1bb8037cb6200223fb84fcccb5e6e587f38332b2d2ed6514bb1c10d10064af3f0da6c6e692caf379dd2225d42c384c553591f2ed6d7d0e6
+Host: www.ps17.com
+Origin: http://www.ps17.com
+Referer: http://www.ps17.com/en/home/2-9-brown-bear-printed-sweater.html
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36
+X-Requested-With: XMLHttpRequest
+controller: product?token=513da5211a63eb67e354a9e453c596ea
+id_product: 2
+id_customization: 0
+group[1]: 2
+qty: 1
+ajax: 1
+action: refresh
+quantity_wanted: 1
