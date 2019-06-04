@@ -1,0 +1,162 @@
+// C:\wamp64\www\sites\presta\ps17\classes\Search.php
+public static function findIds(
+        $id_lang,
+        $expr,
+        $page_number = 1,
+        $page_size = 1,
+        $order_by = 'position',
+        $order_way = 'desc',
+        $ajax = false,
+        $use_cookie = true,
+        Context $context = null
+    ) {
+       
+        if (!$context) {
+            $context = Context::getContext();
+        }
+        $db = Db::getInstance(_PS_USE_SQL_SLAVE_);
+
+        // TODO : smart page management
+        if ($page_number < 1) {
+            $page_number = 1;
+        }
+        if ($page_size < 1) {
+            $page_size = 1;
+        }
+
+        if (!Validate::isOrderBy($order_by) || !Validate::isOrderWay($order_way)) {
+            return false;
+        }
+
+        $intersect_array = array();
+        $score_array = array();
+        $words = explode(' ', Search::sanitize($expr, $id_lang, false, $context->language->iso_code));
+
+        foreach ($words as $key => $word) {
+            if (!empty($word) && strlen($word) >= (int)Configuration::get('PS_SEARCH_MINWORDLEN')) {
+                $sql_param_search = self::getSearchParamFromWord($word);
+
+                $intersect_array[] = 'SELECT DISTINCT si.id_product
+					FROM '._DB_PREFIX_.'search_word sw
+					LEFT JOIN '._DB_PREFIX_.'search_index si ON sw.id_word = si.id_word
+					WHERE sw.id_lang = '.(int)$id_lang.'
+						AND sw.id_shop = '.$context->shop->id.'
+						AND sw.word LIKE
+					\''.$sql_param_search.'\'';
+
+                $score_array[] = 'sw.word LIKE \''.$sql_param_search.'\'';
+            } else {
+                unset($words[$key]);
+            }
+        }
+
+        if (!count($words)) {
+            return ($ajax ? array() : array('total' => 0, 'result' => array()));
+        }
+
+        $score = '';
+        if (is_array($score_array) && !empty($score_array)) {
+            $score = ',(
+				SELECT SUM(weight)
+				FROM '._DB_PREFIX_.'search_word sw
+				LEFT JOIN '._DB_PREFIX_.'search_index si ON sw.id_word = si.id_word
+				WHERE sw.id_lang = '.(int)$id_lang.'
+					AND sw.id_shop = '.$context->shop->id.'
+					AND si.id_product = p.id_product
+					AND ('.implode(' OR ', $score_array).')
+			) position';
+        }
+
+        $sql_groups = '';
+        if (Group::isFeatureActive()) {
+            $groups = FrontController::getCurrentCustomerGroups();
+            $sql_groups = 'AND cg.`id_group` '.(count($groups) ? 'IN ('.implode(',', $groups).')' : '= 1');
+        }
+
+        $results = $db->executeS('
+		SELECT DISTINCT cp.`id_product`
+		FROM `'._DB_PREFIX_.'category_product` cp
+		'.(Group::isFeatureActive() ? 'INNER JOIN `'._DB_PREFIX_.'category_group` cg ON cp.`id_category` = cg.`id_category`' : '').'
+		INNER JOIN `'._DB_PREFIX_.'category` c ON cp.`id_category` = c.`id_category`
+		INNER JOIN `'._DB_PREFIX_.'product` p ON cp.`id_product` = p.`id_product`
+		'.Shop::addSqlAssociation('product', 'p', false).'
+		WHERE c.`active` = 1
+		AND product_shop.`active` = 1
+		AND product_shop.`visibility` IN ("both", "search")
+		AND product_shop.indexed = 1
+		'.$sql_groups, true, false);
+
+        $eligible_products = array();
+        foreach ($results as $row) {
+            $eligible_products[] = $row['id_product'];
+        }
+
+        $eligible_products2 = array();
+        foreach ($intersect_array as $query) {
+            foreach ($db->executeS($query, true, false) as $row) {
+                $eligible_products2[] = $row['id_product'];
+            }
+        }
+        $eligible_products = array_unique(array_intersect($eligible_products, array_unique($eligible_products2)));
+        if (!count($eligible_products)) {
+            return ($ajax ? array() : array('total' => 0, 'result' => array()));
+        }
+
+        $product_pool = '';
+        foreach ($eligible_products as $id_product) {
+            if ($id_product) {
+                $product_pool .= (int)$id_product.',';
+            }
+        }
+        if (empty($product_pool)) {
+            return ($ajax ? array() : array('total' => 0, 'result' => array()));
+        }
+        $product_pool = ((strpos($product_pool, ',') === false) ? (' = '.(int)$product_pool.' ') : (' IN ('.rtrim($product_pool, ',').') '));
+       
+        return $product_pool;
+    }
+
+// C:\wamp64\www\sites\presta\ps17\modules\ps_facetedsearch\ps_facetedsearch.php
+public function hookProductSearchProvider($params)
+    {
+        $query = $params['query'];
+        // do something with query,
+        // e.g. use $query->getIdCategory()
+        // to choose a template for filters.
+        // Query is an instance of:
+        // PrestaShop\PrestaShop\Core\Product\Search\ProductSearchQuery
+       
+        if (true) {
+        // if ($query->getIdCategory()) {
+            return new Ps_FacetedsearchProductSearchProvider($this);
+        } else {
+            return null;
+        }
+    }
+
+
+public function getProductByFilters(
+        $products_per_page,
+        $page,
+        $order_by,
+        $order_way,
+        $id_lang,
+        $selected_filters = array(),
+        $product_ids_sql = ''
+    ) {
+
+if ($product_ids_sql) {
+            $query_filters_where .= ' AND p.`id_product` '.$product_ids_sql;
+        }
+    $id_manufacturer = Tools::getValue('id_manufacturer');
+        if ($id_manufacturer) {
+            $query_filters_where .= ' AND p.id_manufacturer = ' . (int) $id_manufacturer;
+        }
+
+
+public function getFilterBlock(
+    ....
+    case 'manufacturer':
+                        $id_manufacturer = (int) Tools::getValue('id_manufacturer');
+                        if (isset($products) && $products && !$id_manufacturer) {
+
